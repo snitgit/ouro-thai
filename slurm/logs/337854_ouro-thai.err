@@ -1,0 +1,2 @@
+INFO:    Try appending ':ro' to your overlay image or using '--fakeroot'
+FATAL:   container creation failed: mount hook function failure: hook function for tag layer returns error: failed to create /cm/local/apps/slurm/var/spool/output directory: mkdir /cm/local/apps/slurm/var/spool/output: permission denied

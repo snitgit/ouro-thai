@@ -1,0 +1,15 @@
+=== Job 337950 ===
+Config: configs/a100.yaml
+Output: ./output/exp3a-wangchan-ut2
+GPUs: 4
+Node: tau
+0, NVIDIA H100 80GB HBM3, 81559 MiB
+1, NVIDIA H100 80GB HBM3, 81559 MiB
+2, NVIDIA H100 80GB HBM3, 81559 MiB
+3, NVIDIA H100 80GB HBM3, 81559 MiB
+Current Workspace: /home/snit.san/llm/Ouro
+Model: ByteDance/Ouro-2.6B
+total_ut_steps: 2
+Output: /workspace/output
+trainable params: 30,277,632 || all params: 2,698,252,289 || trainable%: 1.1221
+{'loss': 0.8549, 'grad_norm': 1.6370481252670288, 'learning_rate': 1.1842105263157895e-05, 'num_tokens': 639931.0, 'mean_token_accuracy': 0.7874378204345703, 'epoch': 0.01}

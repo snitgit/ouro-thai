@@ -1,0 +1,11 @@
+=== Job 337854 ===
+Config: configs/a100.yaml
+Output: ./output/ouro-2.6b-thai-ut4
+GPUs: 4
+Node: tau
+0, NVIDIA H100 80GB HBM3, 81559 MiB
+1, NVIDIA H100 80GB HBM3, 81559 MiB
+2, NVIDIA H100 80GB HBM3, 81559 MiB
+3, NVIDIA H100 80GB HBM3, 81559 MiB
+Current Workspace: /cm/local/apps/slurm/var/spool
+=== Job 337854 finished ===

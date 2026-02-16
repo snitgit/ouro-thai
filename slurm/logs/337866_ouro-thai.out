@@ -1,0 +1,16 @@
+=== Job 337866 ===
+Config: configs/a100.yaml
+Output: ./output/ouro-2.6b-thai-ut4
+GPUs: 4
+Node: tau
+0, NVIDIA H100 80GB HBM3, 81559 MiB
+1, NVIDIA H100 80GB HBM3, 81559 MiB
+2, NVIDIA H100 80GB HBM3, 81559 MiB
+3, NVIDIA H100 80GB HBM3, 81559 MiB
+Current Workspace: /home/snit.san/llm/Ouro
+Model: ByteDance/Ouro-2.6B
+total_ut_steps: 4
+Output: /workspace/output
+trainable params: 30,277,632 || all params: 2,698,252,289 || trainable%: 1.1221
+{'loss': 0.5595, 'grad_norm': 0.1821897029876709, 'learning_rate': 1.1842105263157895e-05, 'num_tokens': 639931.0, 'mean_token_accuracy': 0.8276110500097275, 'epoch': 0.01}
+{'loss': 0.5631, 'grad_norm': 0.2017318606376648, 'learning_rate': 2.5e-05, 'num_tokens': 1281217.0, 'mean_token_accuracy': 0.828350892663002, 'epoch': 0.02}

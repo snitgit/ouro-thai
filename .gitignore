@@ -1,0 +1,6 @@
+.env
+output/
+wandb/
+__pycache__/
+*.sif
+*.run

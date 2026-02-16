@@ -1,0 +1,30 @@
+# Model
+model_name: ByteDance/Ouro-2.6B
+total_ut_steps: 4
+
+# Dataset
+dataset: airesearch/WangchanThaiInstruct
+
+# Quantization — disabled for A100 (80GB VRAM, full bf16 is better quality)
+use_qlora: false
+
+# LoRA
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+
+# Training — optimized for 4x A100
+batch_size: 8
+gradient_accumulation: 4
+max_seq_length: 2048
+learning_rate: 2e-4
+lr_scheduler: cosine
+warmup_ratio: 0.05
+num_train_epochs: 3
+max_steps: -1
+
+# Logging & saving
+logging_steps: 10
+save_steps: 200
+report_to: wandb
+output_dir: ./output/ouro-2.6b-thai-ut4

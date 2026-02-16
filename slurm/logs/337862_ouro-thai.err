@@ -1,0 +1,37 @@
+/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Map:   0%|          | 0/32207 [00:00<?, ? examples/s]Map:  13%|█▎        | 4071/32207 [00:00<00:00, 40446.78 examples/s]Map:  27%|██▋       | 8792/32207 [00:00<00:00, 44411.00 examples/s]Map:  42%|████▏     | 13386/32207 [00:00<00:00, 45105.15 examples/s]Map:  56%|█████▌    | 18000/32207 [00:00<00:00, 45508.41 examples/s]Map:  70%|███████   | 22583/32207 [00:00<00:00, 45620.20 examples/s]Map:  84%|████████▍ | 27210/32207 [00:00<00:00, 45837.99 examples/s]Map:  99%|█████████▉| 31912/32207 [00:00<00:00, 46219.75 examples/s]Map: 100%|██████████| 32207/32207 [00:00<00:00, 45081.77 examples/s]
+Tokenizing train dataset:   0%|          | 0/32207 [00:00<?, ? examples/s]Tokenizing train dataset:   2%|▏         | 650/32207 [00:00<00:04, 6459.21 examples/s]Tokenizing train dataset:   4%|▍         | 1446/32207 [00:00<00:04, 7334.75 examples/s]Tokenizing train dataset:   7%|▋         | 2264/32207 [00:00<00:03, 7714.79 examples/s]Tokenizing train dataset:  10%|▉         | 3070/32207 [00:00<00:03, 7844.91 examples/s]Tokenizing train dataset:  12%|█▏        | 3941/32207 [00:00<00:03, 8151.82 examples/s]Tokenizing train dataset:  15%|█▍        | 4767/32207 [00:00<00:03, 8182.76 examples/s]Tokenizing train dataset:  18%|█▊        | 5658/32207 [00:00<00:05, 4737.94 examples/s]Tokenizing train dataset:  20%|██        | 6462/32207 [00:01<00:04, 5422.10 examples/s]Tokenizing train dataset:  23%|██▎       | 7261/32207 [00:01<00:04, 6007.43 examples/s]Tokenizing train dataset:  25%|██▌       | 8079/32207 [00:01<00:03, 6539.50 examples/s]Tokenizing train dataset:  28%|██▊       | 8923/32207 [00:01<00:03, 7032.89 examples/s]Tokenizing train dataset:  30%|███       | 9721/32207 [00:01<00:03, 7288.20 examples/s]Tokenizing train dataset:  33%|███▎      | 10524/32207 [00:01<00:02, 7493.62 examples/s]Tokenizing train dataset:  36%|███▋      | 11738/32207 [00:01<00:02, 7715.94 examples/s]Tokenizing train dataset:  39%|███▉      | 12545/32207 [00:01<00:02, 7806.86 examples/s]Tokenizing train dataset:  41%|████▏     | 13347/32207 [00:01<00:02, 7861.69 examples/s]Tokenizing train dataset:  45%|████▌     | 14563/32207 [00:02<00:02, 7947.82 examples/s]Tokenizing train dataset:  49%|████▉     | 15800/32207 [00:02<00:02, 8045.36 examples/s]Tokenizing train dataset:  52%|█████▏    | 16619/32207 [00:02<00:01, 8077.37 examples/s]Tokenizing train dataset:  55%|█████▌    | 17857/32207 [00:02<00:01, 8131.94 examples/s]Tokenizing train dataset:  59%|█████▉    | 19051/32207 [00:02<00:01, 8071.50 examples/s]Tokenizing train dataset:  62%|██████▏   | 19906/32207 [00:02<00:01, 8184.13 examples/s]Tokenizing train dataset:  66%|██████▌   | 21096/32207 [00:02<00:01, 8094.23 examples/s]Tokenizing train dataset:  68%|██████▊   | 21940/32207 [00:02<00:01, 8175.00 examples/s]Tokenizing train dataset:  72%|███████▏  | 23114/32207 [00:03<00:01, 8051.55 examples/s]Tokenizing train dataset:  74%|███████▍  | 23970/32207 [00:03<00:01, 8174.87 examples/s]Tokenizing train dataset:  78%|███████▊  | 25151/32207 [00:03<00:00, 8067.69 examples/s]Tokenizing train dataset:  81%|████████  | 25998/32207 [00:03<00:00, 8164.41 examples/s]Tokenizing train dataset:  84%|████████▍ | 27180/32207 [00:03<00:00, 8062.86 examples/s]Tokenizing train dataset:  87%|████████▋ | 28000/32207 [00:03<00:00, 8073.47 examples/s]Tokenizing train dataset:  90%|████████▉ | 28845/32207 [00:03<00:00, 8169.19 examples/s]Tokenizing train dataset:  93%|█████████▎| 30022/32207 [00:03<00:00, 8049.30 examples/s]Tokenizing train dataset:  96%|█████████▌| 30869/32207 [00:04<00:00, 8155.09 examples/s]Tokenizing train dataset:  99%|█████████▉| 32024/32207 [00:04<00:00, 7990.30 examples/s]Tokenizing train dataset: 100%|██████████| 32207/32207 [00:04<00:00, 7621.83 examples/s]
+Truncating train dataset:   0%|          | 0/32207 [00:00<?, ? examples/s]Truncating train dataset: 100%|██████████| 32207/32207 [00:00<00:00, 757513.96 examples/s]
+No label_names provided for model class `PeftModelForCausalLM`. Since `PeftModel` hides base models input arguments, if label_names is not given, label_names can't be set automatically within `Trainer`. Note that empty label_names list will be used instead.
+  0%|          | 0/3021 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/workspace/train_qlora.py", line 156, in <module>
+    main()
+  File "/workspace/train_qlora.py", line 147, in main
+    trainer.train()
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 2237, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 2532, in _inner_training_loop
+    batch_samples, num_items_in_batch = self.get_batch_samples(epoch_iterator, num_batches, args.device)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 5350, in get_batch_samples
+    batch_samples.append(next(epoch_iterator))
+                         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/accelerate/data_loader.py", line 567, in __iter__
+    current_batch = next(dataloader_iter)
+                    ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py", line 733, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/data/dataloader.py", line 789, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/trl/trainer/utils.py", line 97, in __call__
+    prompt = example[self.messages_key][:-1]
+             ~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'messages'
+  0%|          | 0/3021 [00:01<?, ?it/s]

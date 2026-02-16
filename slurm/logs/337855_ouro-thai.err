@@ -1,0 +1,12 @@
+/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/workspace/train_qlora.py", line 150, in <module>
+    main()
+  File "/workspace/train_qlora.py", line 48, in main
+    config = load_config(args)
+             ^^^^^^^^^^^^^^^^^
+  File "/workspace/train_qlora.py", line 33, in load_config
+    with open(args.config) as f:
+         ^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'configs/a100.yaml'

@@ -1,0 +1,9 @@
+torch==2.6.0 --index-url https://download.pytorch.org/whl/cu128
+transformers==4.54.1
+peft>=0.13.0
+bitsandbytes>=0.43.0
+trl>=0.12.0
+datasets
+accelerate
+wandb
+pyyaml

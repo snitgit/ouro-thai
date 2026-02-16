@@ -1,0 +1,6 @@
+/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/workspace/train_qlora.py", line 12, in <module>
+    from trl import SFTTrainer, DataCollatorForCompletionOnlyLM
+ImportError: cannot import name 'DataCollatorForCompletionOnlyLM' from 'trl' (/usr/local/lib/python3.12/dist-packages/trl/__init__.py)

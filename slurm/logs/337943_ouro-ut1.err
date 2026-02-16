@@ -1,0 +1,43 @@
+/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Map: 100%|██████████| 32207/32207 [00:00<?, ? examples/s]Map: 33217 examples [00:00, 10020.34 examples/s]         Map: 35207 examples [00:00, 13658.84 examples/s]Map: 37207 examples [00:00, 14882.11 examples/s]Map: 39207 examples [00:00, 14826.22 examples/s]Map: 41207 examples [00:00, 15211.60 examples/s]Map: 43207 examples [00:00, 15120.26 examples/s]Map: 45180 examples [00:00, 15684.60 examples/s]Map: 47207 examples [00:01, 14070.24 examples/s]Map: 49207 examples [00:01, 13711.72 examples/s]Map: 51207 examples [00:01, 13692.96 examples/s]Map: 53151 examples [00:01, 14606.92 examples/s]Map: 55207 examples [00:01, 13780.03 examples/s]Map: 57207 examples [00:01, 14369.15 examples/s]Map: 59207 examples [00:01, 14476.38 examples/s]Map: 61207 examples [00:02, 14317.33 examples/s]Map: 63207 examples [00:02, 13831.39 examples/s]Map: 64414 examples [00:02, 14167.00 examples/s]
+No label_names provided for model class `PeftModelForCausalLM`. Since `PeftModel` hides base models input arguments, if label_names is not given, label_names can't be set automatically within `Trainer`. Note that empty label_names list will be used instead.
+wandb: WARNING The `run_name` is currently set to the same value as `TrainingArguments.output_dir`. If this was not intended, please specify a different run name by setting the `TrainingArguments.run_name` parameter.
+Traceback (most recent call last):
+  File "/workspace/train_qlora.py", line 158, in <module>
+    main()
+  File "/workspace/train_qlora.py", line 149, in main
+    trainer.train()
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 2237, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 2487, in _inner_training_loop
+    self.control = self.callback_handler.on_train_begin(args, self.state, self.control)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer_callback.py", line 506, in on_train_begin
+    return self.call_event("on_train_begin", args, state, control)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer_callback.py", line 556, in call_event
+    result = getattr(callback, event)(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/integrations/integration_utils.py", line 943, in on_train_begin
+    self.setup(args, state, model, **kwargs)
+  File "/usr/local/lib/python3.12/dist-packages/transformers/integrations/integration_utils.py", line 870, in setup
+    self._wandb.init(
+  File "/usr/local/lib/python3.12/dist-packages/wandb/sdk/wandb_init.py", line 1595, in init
+    get_sentry().reraise(e)
+  File "/usr/local/lib/python3.12/dist-packages/wandb/analytics/sentry.py", line 190, in reraise
+    raise exc.with_traceback(tb)
+  File "/usr/local/lib/python3.12/dist-packages/wandb/sdk/wandb_init.py", line 1516, in init
+    wi.maybe_login(init_settings)
+  File "/usr/local/lib/python3.12/dist-packages/wandb/sdk/wandb_init.py", line 193, in maybe_login
+    wandb_login._login(
+  File "/usr/local/lib/python3.12/dist-packages/wandb/sdk/wandb_login.py", line 190, in _login
+    auth = _find_or_prompt_for_key(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/wandb/sdk/wandb_login.py", line 266, in _find_or_prompt_for_key
+    auth = wbauth.authenticate_session(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/wandb/sdk/lib/wbauth/authenticate.py", line 139, in authenticate_session
+    raise UsageError(
+wandb.errors.errors.UsageError: No API key configured. Use `wandb login` to log in.

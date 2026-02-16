@@ -1,0 +1,23 @@
+/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+No label_names provided for model class `PeftModelForCausalLM`. Since `PeftModel` hides base models input arguments, if label_names is not given, label_names can't be set automatically within `Trainer`. Note that empty label_names list will be used instead.
+Traceback (most recent call last):
+  File "/workspace/train_qlora.py", line 157, in <module>
+    main()
+  File "/workspace/train_qlora.py", line 148, in main
+    trainer.train()
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 2237, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 2287, in _inner_training_loop
+    train_dataloader = self.get_train_dataloader()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 1059, in get_train_dataloader
+    return self._get_dataloader(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 1013, in _get_dataloader
+    dataset = self._remove_unused_columns(dataset, description=description)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/trainer.py", line 939, in _remove_unused_columns
+    raise ValueError(
+ValueError: No columns in the dataset match the model's forward method signature: (input_ids, labels, seq_lengths, completion_mask, assistant_masks). The following columns have been ignored: [messages]. Please check the dataset and model. You may need to set `remove_unused_columns=False` in `TrainingArguments`.
