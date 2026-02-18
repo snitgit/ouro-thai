@@ -1,0 +1,19 @@
+/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/workspace/eval.py", line 225, in <module>
+    main()
+  File "/workspace/eval.py", line 161, in main
+    ds = load_dataset(args.dataset, args.subset, split=args.split)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1488, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1133, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1026, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 983, in dataset_module_factory
+    raise DatasetNotFoundError(f"Dataset '{path}' doesn't exist on the Hub or cannot be accessed.") from e
+datasets.exceptions.DatasetNotFoundError: Dataset 'scb10x/thai_exams' doesn't exist on the Hub or cannot be accessed.

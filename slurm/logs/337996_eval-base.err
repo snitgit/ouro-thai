@@ -1,0 +1,44 @@
+/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 5 examples [00:00, 30.10 examples/s]Generating train split: 5 examples [00:00, 29.65 examples/s]
+Generating test split: 0 examples [00:00, ? examples/s]Generating test split: 162 examples [00:00, 6233.11 examples/s]
+Traceback (most recent call last):
+  File "/workspace/eval.py", line 222, in <module>
+    main()
+  File "/workspace/eval.py", line 177, in main
+    scores = score_choices(model, tokenizer, prompt, device)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/eval.py", line 68, in score_choices
+    outputs = model(**inputs)
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/generic.py", line 961, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/huggingface/modules/transformers_modules/ByteDance/Ouro-2.6B/1ed04250da1a9936042725d302e81c8fa2ab5abd/modeling_ouro.py", line 696, in forward
+    outputs, hidden_states_list, gate_list = self.model(
+                                             ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/generic.py", line 1069, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/huggingface/modules/transformers_modules/ByteDance/Ouro-2.6B/1ed04250da1a9936042725d302e81c8fa2ab5abd/modeling_ouro.py", line 549, in forward
+    past_key_values = UniversalTransformerCache(max_cache_size)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/huggingface/modules/transformers_modules/ByteDance/Ouro-2.6B/1ed04250da1a9936042725d302e81c8fa2ab5abd/modeling_ouro.py", line 134, in __init__
+    self.key_cache: list[Optional[torch.Tensor]] = []
+    ^^^^^^^^^^^^^^
+AttributeError: property 'key_cache' of 'UniversalTransformerCache' object has no setter

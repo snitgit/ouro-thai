@@ -1,0 +1,12 @@
+/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/workspace/eval.py", line 222, in <module>
+    main()
+  File "/workspace/eval.py", line 174, in main
+    correct_idx = normalize_answer_to_index(example[cfg["answer_col"]])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/eval.py", line 85, in normalize_answer_to_index
+    return int(answer) if not isinstance(answer, int) else answer
+           ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'E'

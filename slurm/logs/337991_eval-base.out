@@ -1,0 +1,15 @@
+=== Eval Job 337991 ===
+Adapter:   (none — base model)
+ut_steps:  4
+Dataset:   scb10x/thai_exams / onet / train
+Output:    /workspace/results/eval_base.json
+Node:      tau
+0, NVIDIA H100 80GB HBM3, 81559 MiB
+=== Ouro Eval: base ===
+Model:     ByteDance/Ouro-2.6B
+Adapter:   (none — base model)
+ut_steps:  4
+Dataset:   scb10x/thai_exams / onet / train
+Loading model...
+Loading dataset...
+=== Eval Job 337991 finished ===
