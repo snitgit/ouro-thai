@@ -1,0 +1,23 @@
+=== Eval Job 338010 ===
+Adapter:   /workspace/output/ouro-2.6b-thai-ut4/final_adapter
+ut_steps:  4
+Dataset:   scb10x/thai_exam / onet / test
+Output:    /workspace/results/eval_ft_ut4.json
+Node:      tau
+0, NVIDIA H100 80GB HBM3, 81559 MiB
+=== Ouro Eval: ft_ut4 ===
+Model:     ByteDance/Ouro-2.6B
+Adapter:   /workspace/output/ouro-2.6b-thai-ut4/final_adapter
+ut_steps:  4
+Dataset:   scb10x/thai_exam / onet / test
+Loading model...
+Loading adapter...
+Loading dataset...
+Evaluating on 162 examples
+  [50/162] acc=0.180
+  [100/162] acc=0.200
+  [150/162] acc=0.213
+
+Accuracy: 0.2099  (34/162)
+Saved: /workspace/results/eval_ft_ut4.json
+=== Eval Job 338010 finished ===
