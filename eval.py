@@ -27,19 +27,16 @@ from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
-CHOICE_LABELS = ["A", "B", "C", "D"]
+CHOICE_LABELS = ["A", "B", "C", "D", "E"]
 
 # Column mappings for supported datasets
 DATASET_CONFIGS = {
-    "scb10x/thai_exams": {
+    # scb10x/thai_exam: subsets onet, tgat, a_level, ic, tpat1
+    # columns: question, a, b, c, d, e (optional), answer (lowercase letters)
+    # splits: train (5-shot, 5 rows), test (eval)
+    "scb10x/thai_exam": {
         "question_col": "question",
-        "choice_cols": ["A", "B", "C", "D"],
-        "answer_col": "answer",
-        "choices_are_columns": True,
-    },
-    "paksakorn/thai_exam": {
-        "question_col": "question",
-        "choice_cols": ["choice_a", "choice_b", "choice_c", "choice_d"],
+        "choice_cols": ["a", "b", "c", "d", "e"],
         "answer_col": "answer",
         "choices_are_columns": True,
     },
@@ -47,45 +44,44 @@ DATASET_CONFIGS = {
 
 
 def build_prompt(tokenizer, question, choices):
-    """Build ChatML-formatted MCQ prompt."""
-    choices_text = "\n".join(
-        f"{label}. {text}" for label, text in zip(CHOICE_LABELS, choices)
-    )
+    """Build ChatML-formatted MCQ prompt. choices is a list of non-empty option texts."""
+    labels = CHOICE_LABELS[:len(choices)]
+    choices_text = "\n".join(f"{label}. {text}" for label, text in zip(labels, choices))
+    label_list = ", ".join(labels[:-1]) + f" หรือ {labels[-1]}"
     user_content = (
         f"จงเลือกคำตอบที่ถูกต้องที่สุด\n\n"
         f"คำถาม: {question}\n\n"
         f"{choices_text}\n\n"
-        f"ตอบด้วยตัวอักษร A, B, C หรือ D เพียงตัวเดียว"
+        f"ตอบด้วยตัวอักษร {label_list} เพียงตัวเดียว"
     )
     messages = [{"role": "user", "content": user_content}]
-    prompt = tokenizer.apply_chat_template(
+    return tokenizer.apply_chat_template(
         messages, tokenize=False, add_generation_prompt=True
     )
-    return prompt
 
 
 @torch.no_grad()
-def score_choices(model, tokenizer, prompt, device):
-    """Return log-probs for next-token choices A/B/C/D after the prompt."""
+def score_choices(model, tokenizer, prompt, n_choices, device):
+    """Return log-probs for the first n_choices option tokens after the prompt."""
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
-    outputs = model(**inputs)
+    outputs = model(**inputs, use_cache=False)
     logits = outputs.logits[0, -1, :]  # last token position
     log_probs = torch.log_softmax(logits, dim=-1)
 
     scores = []
-    for label in CHOICE_LABELS:
+    for label in CHOICE_LABELS[:n_choices]:
         token_ids = tokenizer.encode(label, add_special_tokens=False)
         scores.append(log_probs[token_ids[0]].item() if token_ids else float("-inf"))
     return scores
 
 
 def normalize_answer_to_index(answer):
-    """Convert answer label ("A"/"B"/"C"/"D") or int to 0-based index."""
+    """Convert answer label (A/B/C/D, a/b/c/d) or int to 0-based index."""
     if isinstance(answer, str):
         answer = answer.strip().upper()
         if answer in CHOICE_LABELS:
             return CHOICE_LABELS.index(answer)
-    return int(answer)
+    return int(answer) if not isinstance(answer, int) else answer
 
 
 def main():
@@ -98,14 +94,14 @@ def main():
         help="Path to LoRA adapter. Omit to evaluate base model.",
     )
     parser.add_argument("--total_ut_steps", type=int, default=4)
-    parser.add_argument("--dataset", type=str, default="scb10x/thai_exams")
+    parser.add_argument("--dataset", type=str, default="scb10x/thai_exam")
     parser.add_argument(
         "--subset",
         type=str,
         default="onet",
         help="Dataset config/subset name (e.g. onet, tgat, ic).",
     )
-    parser.add_argument("--split", type=str, default="train")
+    parser.add_argument("--split", type=str, default="test")
     parser.add_argument("--output_file", type=str, required=True)
     parser.add_argument(
         "--max_samples",
@@ -151,7 +147,7 @@ def main():
         args.dataset,
         {
             "question_col": "question",
-            "choice_cols": ["A", "B", "C", "D"],
+            "choice_cols": ["a", "b", "c", "d"],
             "answer_col": "answer",
             "choices_are_columns": True,
         },
@@ -170,14 +166,18 @@ def main():
         question = example[cfg["question_col"]]
 
         if cfg.get("choices_are_columns"):
-            choices = [example[col] for col in cfg["choice_cols"]]
+            # Filter out empty/None options (e.g. questions with only 4 of 5 cols)
+            choices = [
+                example[col] for col in cfg["choice_cols"]
+                if example.get(col) not in (None, "")
+            ]
         else:
-            choices = list(example[cfg["choices_col"]])[:4]
+            choices = [c for c in example[cfg["choices_col"]] if c not in (None, "")]
 
         correct_idx = normalize_answer_to_index(example[cfg["answer_col"]])
 
         prompt = build_prompt(tokenizer, question, choices)
-        scores = score_choices(model, tokenizer, prompt, device)
+        scores = score_choices(model, tokenizer, prompt, len(choices), device)
         pred_idx = int(np.argmax(scores))
         is_correct = pred_idx == correct_idx
 

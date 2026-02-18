@@ -11,9 +11,9 @@
 
 set -e
 
-DATASET=${1:-scb10x/thai_exams}
+DATASET=${1:-scb10x/thai_exam}
 SUBSET=${2:-onet}
-SPLIT=${3:-train}
+SPLIT=${3:-test}
 
 echo "Dataset: $DATASET / $SUBSET / $SPLIT"
 echo "Submitting eval jobs..."

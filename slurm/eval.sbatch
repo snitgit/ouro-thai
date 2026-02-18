@@ -11,9 +11,9 @@
 # ── Configuration (override via environment) ──
 ADAPTER_PATH=${ADAPTER_PATH:-}          # empty = base model
 TOTAL_UT_STEPS=${TOTAL_UT_STEPS:-4}
-DATASET=${DATASET:-scb10x/thai_exams}
+DATASET=${DATASET:-scb10x/thai_exam}
 SUBSET=${SUBSET:-onet}
-SPLIT=${SPLIT:-train}
+SPLIT=${SPLIT:-test}
 OUTPUT_FILE=${OUTPUT_FILE:-/workspace/results/eval.json}
 SIF_IMAGE=${SIF_IMAGE:-ouro.sif}
 unset https_proxy
