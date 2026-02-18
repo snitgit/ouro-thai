@@ -20,7 +20,7 @@ echo "Submitting eval jobs..."
 
 # Base model (no adapter, ut_steps=4 = full model capacity)
 sbatch \
-    --job-name=eval-base \
+    --job-name=mini-ve0 \
     --export=ALL,\
 TOTAL_UT_STEPS=4,\
 DATASET=$DATASET,\
@@ -32,7 +32,7 @@ echo "Submitted: base (no adapter, ut_steps=4)"
 
 # Fine-tuned ut_steps=1
 sbatch \
-    --job-name=eval-ft-ut1 \
+    --job-name=mini-ve1 \
     --export=ALL,\
 ADAPTER_PATH=/workspace/output/exp2-wangchan-ut1/final_adapter,\
 TOTAL_UT_STEPS=1,\
@@ -45,7 +45,7 @@ echo "Submitted: ft-ut1"
 
 # Fine-tuned ut_steps=2
 sbatch \
-    --job-name=eval-ft-ut2 \
+    --job-name=mini-ve2 \
     --export=ALL,\
 ADAPTER_PATH=/workspace/output/exp3a-wangchan-ut2/final_adapter,\
 TOTAL_UT_STEPS=2,\
@@ -58,7 +58,7 @@ echo "Submitted: ft-ut2"
 
 # Fine-tuned ut_steps=3
 sbatch \
-    --job-name=eval-ft-ut3 \
+    --job-name=mini-ve3 \
     --export=ALL,\
 ADAPTER_PATH=/workspace/output/exp3b-wangchan-ut3/final_adapter,\
 TOTAL_UT_STEPS=3,\
@@ -71,7 +71,7 @@ echo "Submitted: ft-ut3"
 
 # Fine-tuned ut_steps=4
 sbatch \
-    --job-name=eval-ft-ut4 \
+    --job-name=mini-ve4 \
     --export=ALL,\
 ADAPTER_PATH=/workspace/output/ouro-2.6b-thai-ut4/final_adapter,\
 TOTAL_UT_STEPS=4,\

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=mini-ve
+#SBATCH --job-name=mini-ep
 #SBATCH --partition=defq
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=8
@@ -9,12 +9,10 @@
 #SBATCH --error=slurm/logs/%j_%x.err
 
 # ── Configuration (override via environment) ──
-ADAPTER_PATH=${ADAPTER_PATH:-}          # empty = base model
+ADAPTER_PATH=${ADAPTER_PATH:-}
 TOTAL_UT_STEPS=${TOTAL_UT_STEPS:-4}
-DATASET=${DATASET:-scb10x/thai_exam}
-SUBSET=${SUBSET:-onet}
-SPLIT=${SPLIT:-test}
-OUTPUT_FILE=${OUTPUT_FILE:-/workspace/results/eval.json}
+MAX_SAMPLES=${MAX_SAMPLES:-500}
+OUTPUT_FILE=${OUTPUT_FILE:-/workspace/results/ppl.json}
 SIF_IMAGE=${SIF_IMAGE:-ouro.sif}
 unset https_proxy
 
@@ -24,12 +22,12 @@ HF_CACHE=${HF_HOME:-$HOME/.cache/huggingface}
 
 mkdir -p "$PROJECT_DIR/results" slurm/logs
 
-echo "=== Eval Job $SLURM_JOB_ID ==="
-echo "Adapter:   ${ADAPTER_PATH:-(none — base model)}"
-echo "ut_steps:  $TOTAL_UT_STEPS"
-echo "Dataset:   $DATASET / $SUBSET / $SPLIT"
-echo "Output:    $OUTPUT_FILE"
-echo "Node:      $(hostname)"
+echo "=== PPL Job $SLURM_JOB_ID ==="
+echo "Adapter:    ${ADAPTER_PATH:-(none — base model)}"
+echo "ut_steps:   $TOTAL_UT_STEPS"
+echo "Max samples: $MAX_SAMPLES"
+echo "Output:     $OUTPUT_FILE"
+echo "Node:       $(hostname)"
 nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader
 
 module load singularity
@@ -37,12 +35,10 @@ singularity exec --nv --contain --writable-tmpfs \
     --bind "$PROJECT_DIR:/workspace" \
     --bind "$HF_CACHE:/scratch/huggingface" \
     "$SIF_IMAGE" \
-    bash -c "cd /workspace && python eval.py \
+    bash -c "cd /workspace && python eval_perplexity.py \
         --total_ut_steps $TOTAL_UT_STEPS \
-        --dataset $DATASET \
-        --subset $SUBSET \
-        --split $SPLIT \
+        --max_samples $MAX_SAMPLES \
         --output_file $OUTPUT_FILE \
         ${ADAPTER_PATH:+--adapter_path $ADAPTER_PATH}"
 
-echo "=== Eval Job $SLURM_JOB_ID finished ==="
+echo "=== PPL Job $SLURM_JOB_ID finished ==="
