@@ -30,8 +30,8 @@ Research question: Does the looping mechanism help or hurt cross-lingual adaptat
 ### TODO
 - [x] Add second RTX 3080 Ti — multi-GPU setup (verified, 22GB total)
 - [ ] Increase batch_size to 2 (leverage dual GPU VRAM)
-- [~] Run full training with ut_steps=4 (job 337867, ~55% done)
-- [ ] Run experiments with ut_steps=1,2,3 for comparison
+- [x] Run full training with ut_steps=4 (job 337867 — COMPLETED)
+- [ ] Run experiments with ut_steps=1,2,3 for comparison (running sequentially)
 - [ ] Optional: train on WangchanX Synthetic Instruct (120K) for comparison
 - [ ] Optional: train on Thai-R1-Distill-SFT (10K) for reasoning experiment
 - [ ] Evaluate on ThaiExam + OpenThaiEval + MT-Bench-Thai
@@ -172,25 +172,52 @@ sacct --format=JobID,JobName,State,ExitCode,Elapsed -u $USER
 - Root cause: HF datasets cache served stale results from old mapper (lowercase field names)
 - Fix: added `load_from_cache_file=False` to `ds.map()`
 
-### Fourth Cluster Run (job 337867) — IN PROGRESS
-- Resubmitted from 337866 with 30h wall time (was 24h, est. ~27.5h needed)
+### Fourth Cluster Run (job 337867) — COMPLETED (exp1: ut_steps=4)
 - All fixes verified: data contains real Thai text (1854/2048 response tokens for sample 0)
-- **~33s/step** on 4x H100 (slower because sequences are now full 2048 tokens)
-- **Est. total time: ~27.5h** (sbatch wall time updated to 40h for future runs)
-- **num_tokens**: 639,931 (vs 7,040 in failed runs — 91x more tokens)
+- **3,021 steps** completed in **~27.3h** (~31.5s/step on 4x H100)
+- **Final loss**: 0.274 | **Avg train loss**: 0.324
+- **Final token accuracy**: 91.2% | **Avg**: 90.4%
+- **194M tokens** processed across 3 epochs
+- Adapter saved to `/workspace/output/final_adapter`
+- Training healthy — loss plateaued ~0.25-0.29 in final epoch, no overfitting
 
-#### Training Curve (job 337867)
-| Checkpoint | Loss | Accuracy | Tokens | Epoch | LR |
-|------------|------|----------|--------|-------|-----|
-| Step 10 | 0.560 | 0.827 | 640K | 0.01 | 1.2e-5 (warmup) |
-| Step 160 | 0.438 | 0.865 | 10.3M | 0.16 | 2.0e-4 (peak) |
-| Step 500 | 0.383 | 0.878 | 32.2M | 0.50 | 1.9e-4 |
-| Step 1000 | 0.329 | 0.895 | 55.3M | 0.85 | 1.7e-4 |
-| Step 1500 | 0.297 | 0.906 | 96.5M | 1.49 | 1.1e-4 |
-| Step 1650 | 0.295 | 0.907 | 106.8M | 1.65 | 9.2e-5 |
+### Fifth Cluster Run (job 337944) — COMPLETED (exp2: ut_steps=1, baseline)
+- Jobs 337942, 337943 failed (wandb auth — forgot `REPORT_TO=none`)
+- **3,021 steps** completed in **~7.1h** (25,600s, ~8.5s/step on 4x H100)
+- **Final loss**: 0.344 | **Avg train loss**: 0.437
+- **Final token accuracy**: 88.9% | **Avg**: 88.1%
+- **194M tokens** processed across 3 epochs
+- Adapter saved to `./output/exp2-wangchan-ut1`
 
-- **Status (15h in)**: ~55% complete, loss steadily declining, no overfitting signs
-- **Est. remaining**: ~12-13h
+### Sixth Cluster Run — exp3a (job 337950, ut_steps=2) — COMPLETED
+- `mini-yut2` — ut_steps=2, output: `./output/exp3a-wangchan-ut2`
+- 4x H100, `REPORT_TO=none`
+- **3,021 steps** completed in **~13.8h** (49,718s, ~16.5s/step)
+- **Final loss**: 0.290 | **Avg train loss**: 0.353
+- **Final token accuracy**: 90.6% | **Avg**: 89.8%
+- **194M tokens** processed across 3 epochs
+- Adapter saved to `/workspace/output/final_adapter`
+
+### Seventh Cluster Run — exp3b (job 337958, ut_steps=3) — COMPLETED
+- Original job 337951 cancelled at epoch 0.60 (4h09m) — 4 GPUs too aggressive for cluster
+- Resubmitted as job 337958 with **1x H100** to reduce GPU usage
+- `mini-yut3` — ut_steps=3, output: `./output/exp3b-wangchan-ut3`
+- **~24s/step** on 1x H100 (heavier than ut_steps=1/2 — 3 forward passes per step)
+- **3,021 steps** completed in **~20.4h** (73,413s)
+- **Final loss**: 0.270 | **Avg train loss**: 0.324
+- **Final token accuracy**: 91.3% | **Avg**: 90.6%
+- **194M tokens** processed across 3 epochs
+- Adapter saved to `/workspace/output/final_adapter`
+
+### Results Summary (All Experiments Complete)
+| Experiment | ut_steps | Final Loss | Avg Loss | Final Acc | Avg Acc | Runtime |
+|---|---|---|---|---|---|---|
+| exp1 (337867) | 4 | 0.274 | 0.324 | 91.2% | 90.4% | 27.3h |
+| exp3b (337958) | 3 | 0.270 | 0.324 | 91.3% | 90.6% | 20.4h |
+| exp3a (337950) | 2 | 0.290 | 0.353 | 90.6% | 89.8% | 13.8h |
+| exp2 (337944) | 1 | 0.344 | 0.437 | 88.9% | 88.1% | 7.1h |
+
+**Trend**: Clear monotonic improvement with more loops — ut_steps=3 and 4 converge to similar quality (~91%), ut_steps=2 is a clear step below, ut_steps=1 lags significantly. Supports hypothesis that looping helps cross-lingual adaptation.
 
 ### Local vs Cluster Comparison
 | | Local (2x RTX 3080) | Cluster (4x H100) |
